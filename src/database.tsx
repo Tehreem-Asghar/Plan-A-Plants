@@ -24,7 +24,7 @@ export const IndoorPlants: ObjTypes[] = [
       "Jade plants thrive in bright, indirect sunlight but can tolerate lower light levels. However, the leaves will become more vibrant and glossy with regular exposure to sunlight.",
     Humidity:
       "Jade plants prefer dry environments but can adapt to slightly more humid conditions. It is recommended to keep them in a space with good air circulation to avoid moisture buildup.",
-    image: "/images/indorePlants/jadeTrerrarium.png ",
+    image: "/images/indorePlants/jadeTrerrarium.png",
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ export const IndoorPlants: ObjTypes[] = [
       "This plant thrives in bright, indirect sunlight but can also tolerate lower light conditions. Avoid direct sunlight, as it may scorch the leaves.",
     Humidity:
       "Ficus Benjamina enjoys a humid environment. To maintain humidity, mist the leaves regularly or place the pot on a tray filled with water and pebbles to enhance moisture levels around the plant.",
-    image: "/images/indorePlants/ficus.png ",
+    image: "/images/indorePlants/ficus.png",
   },
   {
     id: 3,
