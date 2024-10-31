@@ -1,86 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import Link from 'next/link'
+ import { useState } from "react";
 
 const OrderForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    pincode: "",
-    country: "India",
-    orderNotes: "",
-    isShippingDifferent: false,
-  });
 
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [confirm,setConfirm]=useState<boolean>(false)
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value, type } = e.target;
-
-    // Type Narrowing: If the input is of type checkbox, access `checked`
-    const fieldValue =
-      type === "checkbox" ? (e.target as HTMLInputElement).checked : value;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: fieldValue,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Basic validation check
-    if (!formData.firstName || !formData.lastName || !formData.email) {
-      setMessage("Please fill all required fields.");
-      return;
-    }
-
-    setLoading(true); // Start loader
-
-    try {
-      // Simulate API call with a 2-second delay
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      localStorage.removeItem("cart");
-
-      setMessage("Order Placed Successfully!");
-      console.log("Order Data:", formData);
-
-      // Reset form after submission
-      setFormData({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        pincode: "",
-        country: "India",
-        orderNotes: "",
-        isShippingDifferent: false,
-      });
-
-      // Clear success message after 5 seconds
-      setTimeout(() => {
-        setMessage("");
-      }, 5000);
-    }  finally {
-      setLoading(false); // Stop loader
-    }
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault(); 
+    localStorage.removeItem('cart');
+    setConfirm(true);
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+
+    
+    <form  onSubmit={handleSubmit}  method="post">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
         <div>
           <h2 className="text-xl font-semibold mb-4">Billing Details</h2>
@@ -92,8 +28,7 @@ const OrderForm = () => {
                   type="text"
                   name="firstName"
                   placeholder="First Name*"
-                  value={formData.firstName}
-                  onChange={handleChange}
+                  
                   required
                   id="firstName"
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
@@ -106,8 +41,6 @@ const OrderForm = () => {
                   type="text"
                   name="lastName"
                   placeholder="Last Name*"
-                  value={formData.lastName}
-                  onChange={handleChange}
                   required
                   id="lastName"
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
@@ -123,8 +56,7 @@ const OrderForm = () => {
                   name="phone"
                   id="Phone"
                   placeholder="+923087xxxxx"
-                  value={formData.phone}
-                  onChange={handleChange}
+                
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -137,8 +69,7 @@ const OrderForm = () => {
                   name="email"
                   id="email"
                   placeholder="Email Address*"
-                  value={formData.email}
-                  onChange={handleChange}
+                  
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -152,8 +83,7 @@ const OrderForm = () => {
                 name="streetAddress"
                 id="streetAddress "
                 placeholder="House No./ Apartment No./ Plot No."
-                value={formData.streetAddress}
-                onChange={handleChange}
+                
                 required
                 className="w-full border border-gray-800 rounded-lg p-2 mt-1"
               />
@@ -161,9 +91,7 @@ const OrderForm = () => {
                 type="text"
                 name="streetAddress"
                 id="streetAddress"
-                placeholder="Street Name/ Locality"
-                value={formData.email}
-                onChange={handleChange}
+                placeholder="Street Name/ Locality"             
                 required
                 className="w-full border border-gray-800 rounded-lg p-2 mt-1"
               />
@@ -176,9 +104,7 @@ const OrderForm = () => {
                   type="text"
                   name="city"
                   id="city"
-                  placeholder="City*"
-                  value={formData.city}
-                  onChange={handleChange}
+                  placeholder="City*"         
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -190,8 +116,6 @@ const OrderForm = () => {
                   type="text"
                   name="state"
                   placeholder="State*"
-                  value={formData.state}
-                  onChange={handleChange}
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -205,9 +129,7 @@ const OrderForm = () => {
                   type="text"
                   name="pincode"
                   id="pincode"
-                  placeholder="Pincode*"
-                  value={formData.pincode}
-                  onChange={handleChange}
+                  placeholder="Pincode*"  
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -221,7 +143,6 @@ const OrderForm = () => {
                   id="country"
                   value="Pakistan"
                   readOnly
-                  onChange={handleChange}
                   required
                   className="w-full border border-gray-800 rounded-lg p-2 mt-1"
                 />
@@ -235,8 +156,6 @@ const OrderForm = () => {
             <input
               type="checkbox"
               name="isShippingDifferent"
-              checked={formData.isShippingDifferent}
-              onChange={handleChange}
               className="mr-2"
             />
             <label>Ship to a Different Address</label>
@@ -247,8 +166,6 @@ const OrderForm = () => {
           <textarea
             name="orderNotes"
             placeholder="Order notes (optional)"
-            value={formData.orderNotes}
-            onChange={handleChange}
             className="w-full border rounded-lg p-2"
             id="orderNotes"
           ></textarea>
@@ -277,21 +194,17 @@ const OrderForm = () => {
           <div className="md:w-3/6 lg:w-3/6  mb-1 flex flex-col md:items-end lg:items-end">
             <button
               type="submit"
-              className={`md:self-end lg:self-end mt-6 w-3/6 py-3  rounded-lg text-white ${
-                loading ? "bg-gray-500" : "bg-green-600 hover:bg-green-700"
-              }`}
-              disabled={loading}
-            >
-              {loading ? "Placing Order..." : "Place Order"}
+              className={`md:self-end lg:self-end mt-6 w-3/6 py-3  rounded-lg text-white bg-green-600 hover:bg-green-700 `}
+             > Place Order
             </button>
-            {message && (
-              <div
-                className={`mt-4 md:w-3/6 lg:w-3/6 text-center p-4 text-white text-sm  rounded-lg ${
-                  message.includes("Success") ? "bg-green-500" : "bg-red-500"
-                }`}
-              >
-                {message}
-              </div>
+
+            {confirm&&(
+               <div
+               className={`mt-4 md:w-3/6 lg:w-3/6 text-center p-4 text-white text-sm  rounded-lg bg-green-500`}
+             >
+               Order Confirm<br/>
+               <Link href="/">Continue Shoping</Link>
+             </div>
             )}
           </div>
         </div>

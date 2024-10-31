@@ -208,6 +208,9 @@ console.log(selectedPlant)
           ) : null}
         </div>
       </section>
+
+
+
       <section className="h-auto min-w-full bg-green-900 bg-[url('/images/background.png')] bg-cover mt-10 px-12 md:px-28 py-14">
         <div className="flex gap-8 md:gap-5">
           <h3 className="text-white text-base md:text-xl flex items-center gap-2 underline underline-offset-8  ">
@@ -247,7 +250,7 @@ console.log(selectedPlant)
       <section className="mt-6">
         <h2 className="text-[#363636] font-bold font-sans text-2xl lg:text-3xl underline underline-offset-8 text-center">
         You May Also Like...
-        </h2>{" "}
+        </h2>
         <HotSales />
       </section>
     </main>
